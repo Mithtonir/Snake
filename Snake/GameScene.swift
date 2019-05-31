@@ -28,10 +28,37 @@ class GameScene: SKScene {
         initializeMenu()
         game = GameManager(scene: self)
         initializeGameView()
+        let swipeRight:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeR))
+        swipeRight.direction = .right
+        view.addGestureRecognizer(swipeRight)
+        let swipeLeft:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeL))
+        swipeLeft.direction = .left
+        view.addGestureRecognizer(swipeLeft)
+        let swipeUp:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeU))
+        swipeUp.direction = .up
+        view.addGestureRecognizer(swipeUp)
+        let swipeDown:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeD))
+        swipeDown.direction = .down
+        view.addGestureRecognizer(swipeDown)
         
     }
     
- 
+    @objc func swipeR() {//1 == left 2== up, 3 == right
+        print("r")
+        game.swipe(ID: 3)
+    }
+    @objc func swipeL() {
+        print("l")
+        game.swipe(ID: 1)
+    }
+    @objc func swipeU() {
+        print("u")
+        game.swipe(ID: 2)
+    }
+    @objc func swipeD() {
+        print("d")
+        game.swipe(ID: 4)
+    }
      
     
     override func update(_ currentTime: TimeInterval) {
@@ -42,11 +69,11 @@ class GameScene: SKScene {
         //4
         currentScore = SKLabelNode(fontNamed: "ArialRoundedMTBold")
         currentScore.zPosition = 1
-        //currentScore.position = CGPoint(x: 0, y: (frame.size.height / -2) + 60)
-        //currentScore.fontSize = 40
+        currentScore.position = CGPoint(x: 0, y: (frame.size.height / -2) + 60)
+        currentScore.fontSize = 40
         currentScore.isHidden = true
         currentScore.text = "Score: 0"
-        //currentScore.fontColor = SKColor.white
+        currentScore.fontColor = SKColor.white
         self.addChild(currentScore)
         
         let width = frame.size.width - 200
