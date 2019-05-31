@@ -15,17 +15,34 @@ class GameScene: SKScene {
     var bestScore: SKLabelNode!
     var playButton: SKShapeNode!
     
+    var game: GameManager!
    
     
     override func didMove(to view: SKView) {
         initializeMenu()
+        game = GameManager();
     }
+    
+ 
      
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
     }
-    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for touch in touches{
+            let location = touch.location(in: self)
+            let touchedNode = self.nodes(at: location)
+            for node in touchedNode {
+                if node.name == "play_button"{
+                    startGame();
+                }
+            }
+        }
+    }
+    private func startGame() {
+        print("start game")
+    }
         private func initializeMenu() {
             //Create game title
             gameLogo = SKLabelNode(fontNamed: "ArialRoundedMTBold")

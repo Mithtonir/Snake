@@ -14,6 +14,7 @@
 		0277138022A11E87006D1631 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0277137E22A11E87006D1631 /* Main.storyboard */; };
 		0277138222A11E8B006D1631 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0277138122A11E8B006D1631 /* Assets.xcassets */; };
 		0277138522A11E8B006D1631 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0277138322A11E8B006D1631 /* LaunchScreen.storyboard */; };
+		02A4D27822A13DF9007CF68F /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A4D27722A13DF9007CF68F /* GameManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		0277138122A11E8B006D1631 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0277138422A11E8B006D1631 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0277138622A11E8B006D1631 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		02A4D27722A13DF9007CF68F /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				0277137422A11E87006D1631 /* AppDelegate.swift */,
 				0277137622A11E87006D1631 /* GameScene.sks */,
 				0277137A22A11E87006D1631 /* GameScene.swift */,
+				02A4D27722A13DF9007CF68F /* GameManager.swift */,
 				0277137C22A11E87006D1631 /* GameViewController.swift */,
 				0277137E22A11E87006D1631 /* Main.storyboard */,
 				0277138122A11E8B006D1631 /* Assets.xcassets */,
@@ -143,6 +146,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0277137B22A11E87006D1631 /* GameScene.swift in Sources */,
+				02A4D27822A13DF9007CF68F /* GameManager.swift in Sources */,
 				0277137D22A11E87006D1631 /* GameViewController.swift in Sources */,
 				0277137522A11E87006D1631 /* AppDelegate.swift in Sources */,
 			);
