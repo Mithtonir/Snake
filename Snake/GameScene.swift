@@ -26,15 +26,16 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         initializeMenu()
-        game = GameManager();
-        initializeGameView();
+        game = GameManager(scene: self)
+        initializeGameView()
+        
     }
     
  
      
     
     override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
+        game.update (time: currentTime)
     }
     
     private func initializeGameView() {
@@ -114,6 +115,7 @@ class GameScene: SKScene {
             self.gameBG.run(SKAction.scale(to: 1, duration: 0.1))
             self.currentScore.run(SKAction.scale(to: 1, duration: 0.4))
             self.playButton.isHidden = true //may be needed
+            self.game.initGame()
         }
         
     }
