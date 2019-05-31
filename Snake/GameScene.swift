@@ -21,7 +21,7 @@ class GameScene: SKScene {
     var playerPositions: [(Int, Int)] = []
     var gameBG: SKShapeNode!
     var gameArray: [(node: SKShapeNode, x: Int, y: Int)] = []
-    
+    var scorePos: CGPoint?
    
     
     override func didMove(to view: SKView) {
