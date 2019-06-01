@@ -15,14 +15,35 @@ class GameManager {
     init(scene: GameScene){
         self.scene = scene
     }
-
+    var currentScore: Int = 0
 func initGame() {
     scene.playerPositions.append((10,10))
     scene.playerPositions.append((10,11))
     scene.playerPositions.append((10,12))
+    scene.playerPositions.append((10,13))
+    scene.playerPositions.append((10,14))
+    scene.playerPositions.append((10,15))
+    scene.playerPositions.append((10,16))
+    scene.playerPositions.append((10,17))
+    scene.playerPositions.append((10,18))
     renderChange();
     generateNewPoint();
 }
+    private func checkForScore() {
+        if scene.scorePos != nil {
+            let x = scene.playerPositions[0].0
+            let y = scene.playerPositions[0].1
+            if Int((scene.scorePos?.x)!) == y && Int((scene.scorePos?.y)!) == x {
+                currentScore += 1
+                scene.currentScore.text = "Score: \(currentScore)"
+                generateNewPoint()
+                scene.playerPositions.append(scene.playerPositions.last!)
+                 scene.playerPositions.append(scene.playerPositions.last!)
+                 scene.playerPositions.append(scene.playerPositions.last!)
+            }
+            
+        }
+    }
     private func generateNewPoint() {
         let randomX = CGFloat(arc4random_uniform(19))
         let randomY = CGFloat(arc4random_uniform(39))
@@ -36,15 +57,30 @@ func initGame() {
             if time >= nextTime! {
                 nextTime = time + timeExtension
                 updatePlayerPosition()
+                checkForScore()
+                checkForDeath()
             }
         }
         
         
     }
+    private func checkForDeath() {
+        if scene.playerPositions.count > 0 {
+            var arrayOfPositions = scene.playerPositions
+            let headOfSnake = arrayOfPositions[0]
+            arrayOfPositions.remove(at: 0)
+            if contains(a: arrayOfPositions, v: headOfSnake ) {
+                playerDirection = 0
+                //here: wall of death
+            }
+        }
+    }
+    
     func swipe(ID: Int){
         if !(ID == 2 && playerDirection == 4) && !(ID == 4 && playerDirection == 2){
             if !(ID == 1 && playerDirection == 3) && !(ID == 3 && playerDirection == 1){
                 playerDirection = ID
+                if playerDirection != 0 { playerDirection = ID }
             }
         }
     }
@@ -73,6 +109,11 @@ func initGame() {
           
             xChange = 0
             yChange = 1
+            break
+            //checkForDeath()
+        case 0:
+            xChange = 0
+            yChange = 0
             break
         default:
             break
