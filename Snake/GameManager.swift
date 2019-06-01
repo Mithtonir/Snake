@@ -29,21 +29,7 @@ func initGame() {
     renderChange();
     generateNewPoint();
 }
-    private func checkForScore() {
-        if scene.scorePos != nil {
-            let x = scene.playerPositions[0].0
-            let y = scene.playerPositions[0].1
-            if Int((scene.scorePos?.x)!) == y && Int((scene.scorePos?.y)!) == x {
-                currentScore += 1
-                scene.currentScore.text = "Score: \(currentScore)"
-                generateNewPoint()
-                scene.playerPositions.append(scene.playerPositions.last!)
-                 scene.playerPositions.append(scene.playerPositions.last!)
-                 scene.playerPositions.append(scene.playerPositions.last!)
-            }
-            
-        }
-    }
+    
     private func generateNewPoint() {
         let randomX = CGFloat(arc4random_uniform(19))
         let randomY = CGFloat(arc4random_uniform(39))
@@ -59,10 +45,66 @@ func initGame() {
                 updatePlayerPosition()
                 checkForScore()
                 checkForDeath()
+                finishAnimation();
             }
         }
         
         
+    }
+    private func updateScore() {
+        if currentScore > UserDefaults.standard.integer(forKey: "bestScore"){
+            UserDefaults.standard.set(currentScore, forKey: "bestScore")
+        }
+        currentScore = 0
+        scene.currentScore.text = "Score: 0"
+        scene.bestScore.text = "Best Score: \(UserDefaults.standard.integer(forKey: "bestScore"))"
+    }
+    private func finishAnimation() {
+        if playerDirection == 0 && scene.playerPositions.count > 0 {
+            var hasFinished = true
+            let headOfSnake = scene.playerPositions[0]
+            for position in scene.playerPositions {
+                if headOfSnake != position {
+                    hasFinished = false
+                }
+            }
+            if hasFinished {
+                print("end game")
+                updateScore()
+                playerDirection = 4
+                //animation has completed
+                scene.scorePos = nil
+                scene.playerPositions.removeAll()
+                renderChange()
+                //return to menu
+                self.scene.currentScore.isHidden = true //cp
+                    scene.gameBG.run(SKAction.scale(to: 0, duration: 0.4)) {
+                        self.scene.gameBG.isHidden = true
+                        self.scene.gameLogo.isHidden = false
+                        self.scene.gameLogo.run(SKAction.move(to: CGPoint(x: 0, y: (self.scene.frame.size.height / 2) - 200), duration: 0.5)) {
+                            self.scene.playButton.isHidden = false
+                            self.scene.playButton.run(SKAction.scale(to: 1, duration: 0.3))
+                            self.scene.bestScore.run(SKAction.move(to: CGPoint(x: 0, y: self.scene.gameLogo.position.y - 50), duration: 0.3))
+                        }
+                }
+            }
+        }
+    }
+    
+    private func checkForScore() {
+        if scene.scorePos != nil {
+            let x = scene.playerPositions[0].0
+            let y = scene.playerPositions[0].1
+            if Int((scene.scorePos?.x)!) == y && Int((scene.scorePos?.y)!) == x {
+                currentScore += 1
+                scene.currentScore.text = "Score: \(currentScore)"
+                generateNewPoint()
+                scene.playerPositions.append(scene.playerPositions.last!)
+                scene.playerPositions.append(scene.playerPositions.last!)
+                scene.playerPositions.append(scene.playerPositions.last!)
+            }
+            
+        }
     }
     private func checkForDeath() {
         if scene.playerPositions.count > 0 {
