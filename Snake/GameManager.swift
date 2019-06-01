@@ -45,11 +45,47 @@ func initGame() {
                 updatePlayerPosition()
                 checkForScore()
                 checkForDeath()
+                wallOfDeath()
                 finishAnimation();
+                
             }
         }
         
         
+    }
+    private func wallOfDeath() {
+        var firstRow: [(Int, Int)] = []
+        var lastRow: [(Int, Int)] = []
+        for m in 0...19 {
+            firstRow.append((0, m))
+            lastRow.append((39, m))
+        }
+        var rightCol: [(Int, Int)] = []
+        var leftCol: [(Int, Int)] = []
+        for n in 0...39 {
+            leftCol.append((n, 0))
+            leftCol.append((n, 19))
+
+        }
+        
+        if scene.playerPositions.count > 0 {
+            
+            
+            let headOfSnake = scene.playerPositions[0]
+           // arrayOfPositions.remove(at: 0)
+            if contains(a: firstRow, v: headOfSnake ) {
+                playerDirection = 0
+            }
+            if contains(a: leftCol, v: headOfSnake ) {
+                playerDirection = 0
+            }
+            if contains(a: rightCol, v: headOfSnake ) {
+                playerDirection = 0
+            }
+            if contains(a: lastRow, v: headOfSnake ) {
+                playerDirection = 0
+            }
+        }
     }
     private func updateScore() {
         if currentScore > UserDefaults.standard.integer(forKey: "bestScore"){
@@ -107,17 +143,29 @@ func initGame() {
         }
     }
     private func checkForDeath() {
+       var firstRow: [(Int, Int)] = []
+        for m in 0...19 {
+            firstRow.append((0, m))
+        }
+        
         if scene.playerPositions.count > 0 {
+           
+         
             var arrayOfPositions = scene.playerPositions
+            //var wallsOfDeath = scene.gameArray
             let headOfSnake = arrayOfPositions[0]
             arrayOfPositions.remove(at: 0)
             if contains(a: arrayOfPositions, v: headOfSnake ) {
-                playerDirection = 0
-                //here: wall of death
-            }
+                
+              
+                
+                    playerDirection = 0
+                    //here: wall of deat
+            
         }
+       
     }
-    
+    }
     func swipe(ID: Int){
         if !(ID == 2 && playerDirection == 4) && !(ID == 4 && playerDirection == 2){
             if !(ID == 1 && playerDirection == 3) && !(ID == 3 && playerDirection == 1){
@@ -186,7 +234,7 @@ func renderChange() {
         }
     }
 }
-
+    
 func contains(a:[(Int, Int)], v:(Int,Int)) -> Bool {
     let (c1, c2) = v
     for (v1, v2) in a { if v1 == c1 && v2 == c2 { return true } }

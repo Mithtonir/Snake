@@ -21,6 +21,7 @@ class GameScene: SKScene {
     var playerPositions: [(Int, Int)] = []
     var gameBG: SKShapeNode!
     var gameArray: [(node: SKShapeNode, x: Int, y: Int)] = []
+    //var firstRow: [(Int, Int)] = []
     var scorePos: CGPoint?
    
     
@@ -94,6 +95,9 @@ class GameScene: SKScene {
         var x = CGFloat(width / -2) + (cellWidth / 2)
         var y = CGFloat(height / 2) - (cellWidth / 2)
         //loop through rows and columns, create cells
+     
+        
+        
         for i in 0...numRows - 1 {
             for j in 0...numCols - 1 {
                 let cellNode = SKShapeNode(rectOf: CGSize(width: cellWidth, height: cellWidth))
@@ -102,6 +106,7 @@ class GameScene: SKScene {
                 cellNode.position = CGPoint(x: x, y: y)
                 //add to array of cells -- then add to game board
                 gameArray.append((node: cellNode, x: i, y: j))
+                
                 gameBG.addChild(cellNode)
                 //iterate x
                 x += cellWidth
@@ -110,6 +115,7 @@ class GameScene: SKScene {
             x = CGFloat(width / -2) + (cellWidth / 2)
             y -= cellWidth
         }
+        
     }
     
     
