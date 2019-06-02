@@ -14,8 +14,9 @@ class GameScene: SKScene {
     var gameLogo: SKLabelNode!
     var bestScore: SKLabelNode!
     var playButton: SKShapeNode!
-    
+    var colorChangeButton: SKShapeNode!
     var game: GameManager!
+    
     
     var currentScore: SKLabelNode!
     var playerPositions: [(Int, Int)] = []
@@ -23,7 +24,7 @@ class GameScene: SKScene {
     var gameArray: [(node: SKShapeNode, x: Int, y: Int)] = []
     //var firstRow: [(Int, Int)] = []
     var scorePos: CGPoint?
-   
+    var snakeColor: UIColor?
     
     override func didMove(to view: SKView) {
         initializeMenu()
@@ -124,11 +125,29 @@ class GameScene: SKScene {
             let location = touch.location(in: self)
             let touchedNode = self.nodes(at: location)
             for node in touchedNode {
+                
                 if node.name == "play_button"{
-                    startGame();
+                   
+                    startGame()
+                    randomColor()
                 }
+                
             }
+            /*for node in touchedNode {
+                if node.name == "color_change"{
+                    randomColor()
+                    
+                }
+                
+            }*/
         }
+    }
+    func randomColor() -> UIColor {
+        let hue : CGFloat = CGFloat(arc4random()%256)/256
+        let saturation :  CGFloat = CGFloat(arc4random() % 128 ) / 256 + 0.5
+        let brightness :  CGFloat = CGFloat(arc4random() % 128 ) / 256 + 0.5
+        snakeColor = UIColor(hue: hue, saturation: saturation, brightness: brightness, alpha: 1)
+        return snakeColor!
     }
     private func startGame() {
         print("start game") //for testing only
@@ -176,14 +195,26 @@ class GameScene: SKScene {
             playButton.name = "play_button"
             playButton.zPosition = 1
             playButton.position = CGPoint(x: 0, y: (frame.size.height / -2) + 200)
-            playButton.fillColor = SKColor.cyan
+            playButton.fillColor = snakeColor ?? UIColor.cyan
             let topCorner = CGPoint(x: -50, y: 50)
             let bottomCorner = CGPoint(x: -50, y: -50)
             let middle = CGPoint(x: 50, y: 0)
             let path = CGMutablePath()
+            let path2 = CGMutablePath()
             path.addLine(to: topCorner)
             path.addLines(between: [topCorner, bottomCorner, middle])
+            path2.addLine(to: topCorner)
+            path2.addLines(between: [topCorner, bottomCorner, middle])
             playButton.path = path
             self.addChild(playButton)
+         /*   colorChangeButton = SKShapeNode()
+            
+            colorChangeButton.name = "color_button"
+            colorChangeButton.zPosition = 1
+            colorChangeButton.position = CGPoint(x: 0, y: (frame.size.height / -2) + 400)
+            colorChangeButton.fillColor = snakeColor ?? UIColor.cyan
+            colorChangeButton.path = path
+            self.addChild(colorChangeButton)*/
+            
         }
 }

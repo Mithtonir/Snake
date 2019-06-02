@@ -12,6 +12,7 @@ class GameManager {
     var nextTime: Double?
     var timeExtension: Double = 0.3 //speed
     var playerDirection: Int = 4 //1 == left 2== up, 3 == right
+    
     init(scene: GameScene){
         self.scene = scene
     }
@@ -220,10 +221,11 @@ func initGame() {
         
         renderChange()
     }
+    
 func renderChange() {
     for (node, x, y) in scene.gameArray {
         if contains(a: scene.playerPositions, v: (x,y)) {
-            node.fillColor = SKColor.cyan
+            node.fillColor = scene.snakeColor ?? UIColor.cyan
         } else {
             node.fillColor = SKColor.clear
             if scene.scorePos != nil {
@@ -234,10 +236,19 @@ func renderChange() {
         }
     }
 }
+   /* var iWannaSeeRainbow: SKColor {
+        SKColor(red: CGFloat(Float(arc4random_uniform(255))/255.0),
+                green: CGFloat(Float(arc4random_uniform(255))/255.0),
+                blue: CGFloat(Float(arc4random_uniform(255))/255.0),
+            alpha: 1.0)
+        return red; green; blue*/
+        
+        
+    }
     
 func contains(a:[(Int, Int)], v:(Int,Int)) -> Bool {
     let (c1, c2) = v
     for (v1, v2) in a { if v1 == c1 && v2 == c2 { return true } }
     return false
 }
-}
+
