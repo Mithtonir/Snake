@@ -46,19 +46,19 @@ class GameScene: SKScene {
     }
     
     @objc func swipeR() {//1 == left 2== up, 3 == right
-        print("r")
+    
         game.swipe(ID: 3)
     }
     @objc func swipeL() {
-        print("l")
+       
         game.swipe(ID: 1)
     }
     @objc func swipeU() {
-        print("u")
+      
         game.swipe(ID: 2)
     }
     @objc func swipeD() {
-        print("d")
+       
         game.swipe(ID: 4)
     }
      
@@ -82,7 +82,7 @@ class GameScene: SKScene {
         let height = frame.size.height - 300
         let rect = CGRect(x: -width / 2, y: -height / 2, width: width, height: height)
         gameBG = SKShapeNode(rect: rect, cornerRadius: 0.02)
-        gameBG.fillColor = SKColor.darkGray
+        gameBG.fillColor = SKColor.green
         gameBG.zPosition = 2
         gameBG.isHidden = true
         self.addChild(gameBG)
@@ -133,13 +133,7 @@ class GameScene: SKScene {
                 }
                 
             }
-            /*for node in touchedNode {
-                if node.name == "color_change"{
-                    randomColor()
-                    
-                }
-                
-            }*/
+           
         }
     }
     func randomColor() -> UIColor {
@@ -150,15 +144,9 @@ class GameScene: SKScene {
         return snakeColor!
     }
     private func startGame() {
-        print("start game") //for testing only
+   
         let bottomCorner = CGPoint(x: 0, y: (frame.size.height / -2)+20)
-      /*  gameLogo.run(SKAction.move(by: CGVector(dx: -50, dy: 600), duration: 0.5)){
-            self.gameLogo.isHidden = true
-        }
-        playButton.run(SKAction.scale(by: <#T##CGFloat#>(), duration: 0.3)){
-            self.playButton.isHidden = true
-        }*/
-        
+     
         bestScore.run(SKAction.move(to: bottomCorner, duration: 0.4)) {
             self.gameBG.setScale(0)
             self.currentScore.setScale(0)
@@ -178,7 +166,7 @@ class GameScene: SKScene {
             gameLogo.position = CGPoint(x: 0, y: (frame.size.height / 2) - 200)
             gameLogo.fontSize = 60
             gameLogo.text = "SNAKE"
-            gameLogo.fontColor = SKColor.red
+            gameLogo.fontColor = SKColor.darkGray
             self.addChild(gameLogo)
             //Create best score label
             bestScore = SKLabelNode(fontNamed: "ArialRoundedMTBold")
@@ -187,8 +175,8 @@ class GameScene: SKScene {
             bestScore.fontSize = 40
             bestScore.text = "Best Score: \(UserDefaults.standard.integer(forKey: "bestScore"))"
             
-            //bestScore.text = "Best Score: 0"
-            bestScore.fontColor = SKColor.white
+           
+            bestScore.fontColor = SKColor.red
             self.addChild(bestScore)
             //play button
             playButton = SKShapeNode()
@@ -207,14 +195,6 @@ class GameScene: SKScene {
             path2.addLines(between: [topCorner, bottomCorner, middle])
             playButton.path = path
             self.addChild(playButton)
-         /*   colorChangeButton = SKShapeNode()
-            
-            colorChangeButton.name = "color_button"
-            colorChangeButton.zPosition = 1
-            colorChangeButton.position = CGPoint(x: 0, y: (frame.size.height / -2) + 400)
-            colorChangeButton.fillColor = snakeColor ?? UIColor.cyan
-            colorChangeButton.path = path
-            self.addChild(colorChangeButton)*/
-            
+        
         }
 }

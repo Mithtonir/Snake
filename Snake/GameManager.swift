@@ -10,7 +10,7 @@ import Foundation
 class GameManager {
     var scene: GameScene!
     var nextTime: Double?
-    var timeExtension: Double = 0.3 //speed
+    var timeExtension: Double = 0.4 //speed
     var playerDirection: Int = 4 //1 == left 2== up, 3 == right
     
     init(scene: GameScene){
@@ -35,6 +35,7 @@ func initGame() {
         let randomX = CGFloat(arc4random_uniform(19))
         let randomY = CGFloat(arc4random_uniform(39))
         scene.scorePos = CGPoint(x: randomX, y: randomY)
+        needForSpeed()
     }
     func update (time: Double){
         if nextTime == nil {
@@ -52,6 +53,14 @@ func initGame() {
             }
         }
         
+        
+    }
+    func needForSpeed() {
+        if timeExtension  > 0 {
+            timeExtension /= 1.5
+        } else {
+            timeExtension = 0.1
+        }
         
     }
     private func wallOfDeath() {
@@ -153,7 +162,7 @@ func initGame() {
            
          
             var arrayOfPositions = scene.playerPositions
-            //var wallsOfDeath = scene.gameArray
+            
             let headOfSnake = arrayOfPositions[0]
             arrayOfPositions.remove(at: 0)
             if contains(a: arrayOfPositions, v: headOfSnake ) {
@@ -161,7 +170,7 @@ func initGame() {
               
                 
                     playerDirection = 0
-                    //here: wall of deat
+                
             
         }
        
@@ -236,12 +245,7 @@ func renderChange() {
         }
     }
 }
-   /* var iWannaSeeRainbow: SKColor {
-        SKColor(red: CGFloat(Float(arc4random_uniform(255))/255.0),
-                green: CGFloat(Float(arc4random_uniform(255))/255.0),
-                blue: CGFloat(Float(arc4random_uniform(255))/255.0),
-            alpha: 1.0)
-        return red; green; blue*/
+  
         
         
     }
